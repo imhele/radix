@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "declaration": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "preserveConstEnums": true,
+    "outDir": "es/",
+    "baseUrl": ".",
+    "strict": true,
+    "strictNullChecks": true
+  },
+  "include": ["index.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}
