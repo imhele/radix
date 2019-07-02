@@ -13,3 +13,36 @@ $ npm install @imhele/radix --save
 or
 $ yarn add @imhele/radix
 ```
+
+## Exmaple
+
+```js
+import changeRadix from '@imhele/radix';
+
+changeRadix('2', { fromRadix: 10, toRadix: 2 });
+// '10'
+changeRadix('ffff', { fromRadix: 16, toRadix: 32 });
+// '1vvv'
+changeRadix(12345678, { fromRadix: 10 });
+// 'PNFQ'
+changeRadix(Number.MAX_VALUE, { fromRadix: 10 });
+// '213224e6bc117ba5f5'
+```
+
+## Throw error
+
+Does not suport decimal.
+
+```js
+changeRadix(1.2);
+// ERROR:
+// [radix] The input message `1.1` include the char `.`
+// that does not exist in char map `0123456789abcde...`
+
+changeRadix(2, { toRadix: 1 });
+changeRadix(2, { toRadix: 2.2 });
+changeRadix(2, { toRadix: 100, toCharMap: '01' });
+// ERROR:
+// [radix] The radix must be an integer between `2`
+// and `charMap.length (62)`, but got `1`
+```

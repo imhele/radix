@@ -26,15 +26,25 @@ export interface ChangeRadixConfig {
 
 function inputCharNotFound(messgae: number | string, char: string, fromCharMap: string) {
   throw new Error(`
-[radix] The input message \`${messgae}\` include the char \`${char}\`
+[radix] The input message \`${messgae}\` include the char \`${char}\` \
 that does not exist in char map \`${fromCharMap}\`
+`);
+}
+
+function checkRadix(radix: number, charMap: string) {
+  if (radix < 2 || radix > charMap.length || !Number.isInteger(radix))
+    throw new Error(`
+[radix] The radix must be an integer between \`2\` and \
+\`charMap.length (${charMap.length})\`, but got \`${radix}\`
 `);
 }
 
 export function changeRadix(message: number | string, config: ChangeRadixConfig = {}): string {
   const { fromCharMap = defaultCharMap, toCharMap = defaultCharMap } = config;
-  const fromRadix = config.fromRadix || fromCharMap.length;
   const toRadix = config.toRadix || toCharMap.length;
+  const fromRadix = config.fromRadix || fromCharMap.length;
+  checkRadix(toRadix, toCharMap);
+  checkRadix(fromRadix, fromCharMap);
   const digits: number[] = [];
   let isNegative: string | false = false;
   if (typeof message === 'number') message = `${message}`;

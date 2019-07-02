@@ -28,5 +28,14 @@ describe('Test for `index.ts`', () => {
     expect(() => {
       changeRadix('1.1');
     }).toThrowError();
+    expect(() => {
+      changeRadix(1, { fromRadix: 1 });
+    }).toThrowError();
+    expect(() => {
+      changeRadix(1, { fromRadix: 22.2 });
+    }).toThrowError();
+    expect(() => {
+      changeRadix(1, { toRadix: 100, toCharMap: '012' });
+    }).toThrowError();
   });
 });
