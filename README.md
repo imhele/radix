@@ -25,8 +25,8 @@ changeRadix('ffff', { fromRadix: 16, toRadix: 32 });
 // '1vvv'
 changeRadix(12345678, { fromRadix: 10 });
 // 'PNFQ'
-changeRadix(Number.MAX_VALUE, { fromRadix: 10 });
-// '213224e6bc117ba5f5'
+changeRadix('12345678', { fromRadix: 10, toRadix: 16 });
+// 'bc614e'
 ```
 
 ## Throw error
