@@ -25,7 +25,7 @@ changeRadix('ffff', { fromRadix: 16, toRadix: 32 });
 // '1vvv'
 changeRadix(12345678, { fromRadix: 10 });
 // 'PNFQ'
-changeRadix('12345678', { fromRadix: 10, toRadix: 16 });
+changeRadix('12345678', { fromRadix: 10, toCharMap: '0123456789abcdef' });
 // 'bc614e'
 ```
 
