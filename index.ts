@@ -32,7 +32,7 @@ that does not exist in char map \`${fromCharMap}\`
 }
 
 function checkRadix(radix: number, charMap: string) {
-  if (radix < 2 || radix > charMap.length || !Number.isInteger(radix))
+  if (radix < 2 || radix > charMap.length || parseInt(radix as any, 10) !== radix)
     throw new Error(`
 [radix] The radix must be an integer between \`2\` and \
 \`charMap.length (${charMap.length})\`, but got \`${radix}\`
