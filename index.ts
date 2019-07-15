@@ -40,9 +40,11 @@ function checkRadix(radix: number, charMap: string) {
 }
 
 export function changeRadix(message: number | string, config: ChangeRadixConfig = {}): string {
-  const { fromCharMap = defaultCharMap, toCharMap = defaultCharMap } = config;
+  let { fromCharMap = defaultCharMap, toCharMap = defaultCharMap } = config;
   const toRadix = config.toRadix || toCharMap.length;
   const fromRadix = config.fromRadix || fromCharMap.length;
+  toCharMap = toCharMap.slice(0, toRadix);
+  fromCharMap = fromCharMap.slice(0, fromRadix);
   checkRadix(toRadix, toCharMap);
   checkRadix(fromRadix, fromCharMap);
   const digits: number[] = [];
