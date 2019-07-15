@@ -37,5 +37,8 @@ describe('Test for `index.ts`', () => {
     expect(() => {
       changeRadix(1, { toRadix: 100, toCharMap: '012' });
     }).toThrowError();
+    expect(() => {
+      changeRadix('f', { fromRadix: 10 });
+    }).toThrowError();
   });
 });
