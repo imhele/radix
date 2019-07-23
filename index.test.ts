@@ -16,12 +16,10 @@ describe('Test for `index.ts`', () => {
     const toRadix = Math.floor(Math.random() * 34 + 2);
     const fromRadix = Math.floor(Math.random() * 34 + 2);
     const testNum = Math.floor(Math.random() * Math.pow(10, 16));
-    expect(changeRadix(testNum.toString(fromRadix), { fromRadix, toRadix })).toBe(
-      testNum.toString(toRadix),
-    );
-    expect(changeRadix(`-${testNum.toString(fromRadix)}`, { fromRadix, toRadix })).toBe(
-      `-${testNum.toString(toRadix)}`,
-    );
+    const fromStr = testNum.toString(fromRadix).toUpperCase();
+    const toStr = testNum.toString(toRadix).toUpperCase();
+    expect(changeRadix(fromStr, { fromRadix, toRadix })).toBe(toStr);
+    expect(changeRadix(`-${fromStr}`, { fromRadix, toRadix })).toBe(`-${toStr}`);
   });
 
   it('Throw error', () => {
