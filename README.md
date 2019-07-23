@@ -21,10 +21,10 @@ import changeRadix from '@imhele/radix';
 
 changeRadix('2', { fromRadix: 10, toRadix: 2 });
 // '10'
-changeRadix('ffff', { fromRadix: 16, toRadix: 32 });
-// '1vvv'
+changeRadix('FFFF', { fromRadix: 16, toRadix: 32 });
+// '1VVV'
 changeRadix(12345678, { fromRadix: 10 });
-// 'PNFQ'
+// 'pnfq'
 changeRadix('12345678', { fromRadix: 10, toCharMap: '0123456789abcdef' });
 // 'bc614e'
 ```
