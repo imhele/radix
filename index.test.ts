@@ -22,6 +22,14 @@ describe('Test for `index.ts`', () => {
     expect(changeRadix(`-${fromStr}`, { fromRadix, toRadix })).toBe(`-${toStr}`);
   });
 
+  it('Ensure the results of numerical comparison will not change', () => {
+    const a = 11;
+    const b = 12;
+    const aStr = changeRadix(a, { fromRadix: 10 })
+    const bStr = changeRadix(b, { fromRadix: 10 })
+    expect(a < b === aStr < bStr).toBe(true);
+  });
+
   it('Throw error', () => {
     expect(() => {
       changeRadix('1.1');
