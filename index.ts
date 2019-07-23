@@ -1,67 +1,67 @@
-export const defaultCharMap: string =
-  '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+export const defaultCharSet: string =
+  '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
 export interface ChangeRadixConfig {
   /**
    * @default
-   * '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+   * '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
    */
-  fromCharMap?: string;
+  fromCharSet?: string;
   /**
    * @default
-   * fromCharMap.length
+   * fromCharSet.length
    */
   fromRadix?: number;
   /**
    * @default
-   * '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+   * '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
    */
-  toCharMap?: string;
+  toCharSet?: string;
   /**
    * @default
-   * toCharMap.length
+   * toCharSet.length
    */
   toRadix?: number;
 }
 
-function inputCharNotFound(messgae: number | string, char: string, fromCharMap: string) {
+function inputCharNotFound(messgae: number | string, char: string, fromCharSet: string) {
   throw new Error(`
 [radix] The input message \`${messgae}\` include the char \`${char}\` \
-that does not exist in char map \`${fromCharMap}\`
+that does not exist in char set \`${fromCharSet}\`
 `);
 }
 
-function checkRadix(radix: number, charMap: string) {
-  if (radix < 2 || radix > charMap.length || parseInt(radix as any, 10) !== radix)
+function checkRadix(radix: number, charSet: string) {
+  if (radix < 2 || radix > charSet.length || parseInt(radix as any, 10) !== radix)
     throw new Error(`
 [radix] The radix must be an integer between \`2\` and \
-\`charMap.length (${charMap.length})\`, but got \`${radix}\`
+\`charSet.length (${charSet.length})\`, but got \`${radix}\`
 `);
 }
 
 export function changeRadix(message: number | string, config: ChangeRadixConfig = {}): string {
-  let { fromCharMap = defaultCharMap, toCharMap = defaultCharMap } = config;
-  const toRadix = config.toRadix || toCharMap.length;
-  const fromRadix = config.fromRadix || fromCharMap.length;
-  toCharMap = toCharMap.slice(0, toRadix);
-  fromCharMap = fromCharMap.slice(0, fromRadix);
-  checkRadix(toRadix, toCharMap);
-  checkRadix(fromRadix, fromCharMap);
+  let { fromCharSet = defaultCharSet, toCharSet = defaultCharSet } = config;
+  const toRadix = config.toRadix || toCharSet.length;
+  const fromRadix = config.fromRadix || fromCharSet.length;
+  toCharSet = toCharSet.slice(0, toRadix);
+  fromCharSet = fromCharSet.slice(0, fromRadix);
+  checkRadix(toRadix, toCharSet);
+  checkRadix(fromRadix, fromCharSet);
   const digits: number[] = [];
   let isNegative: string | false = false;
   if (typeof message === 'number') message = `${message}`;
   if (message[0] === '-') isNegative = message = message.slice(1);
   message.split('').forEach((char: string) => {
-    let num = fromCharMap.indexOf(char);
-    if (num === -1) inputCharNotFound(message, char, fromCharMap);
+    let num = fromCharSet.indexOf(char);
+    if (num === -1) inputCharNotFound(message, char, fromCharSet);
     for (let i = 0; num || i < digits.length; i++) {
       num += (digits[i] || 0) * fromRadix;
       digits[i] = num % toRadix;
       num = (num - digits[i]) / toRadix;
     }
   });
-  const res = digits.reverse().map(num => toCharMap[num || 0]);
-  if (!res.length) res.push(toCharMap[0]);
+  const res = digits.reverse().map(num => toCharSet[num || 0]);
+  if (!res.length) res.push(toCharSet[0]);
   if (isNegative) res.unshift('-');
   return res.join('');
 }

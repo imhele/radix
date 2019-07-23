@@ -1,10 +1,10 @@
 import 'jest';
-import { changeRadix, defaultCharMap } from './index';
+import { changeRadix, defaultCharSet } from './index';
 
 describe('Test for `index.ts`', () => {
   it('API exists', () => {
     expect(changeRadix).toBeTruthy();
-    expect(defaultCharMap).toBeTruthy();
+    expect(defaultCharSet).toBeTruthy();
   });
 
   it('Basic test', () => {
@@ -35,7 +35,7 @@ describe('Test for `index.ts`', () => {
       changeRadix(1, { fromRadix: 22.2 });
     }).toThrowError();
     expect(() => {
-      changeRadix(1, { toRadix: 100, toCharMap: '012' });
+      changeRadix(1, { toRadix: 100, toCharSet: '012' });
     }).toThrowError();
     expect(() => {
       changeRadix('f', { fromRadix: 10 });
